@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BallonController : MonoBehaviour
 {
     public float upSpeed;
+    public TextMeshProUGUI scoreText;
 
     int score = 0;
     AudioSource audioSource;
@@ -23,7 +26,11 @@ public class BallonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.position.y >= 7f)
+        {
+            //SceneManager.LoadScene("Game");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private void FixedUpdate()
@@ -34,6 +41,8 @@ public class BallonController : MonoBehaviour
     private void OnMouseDown()
     {
         score++;
+        int totalScore = int.Parse(scoreText.text) + 1;
+        scoreText.text = totalScore.ToString();
         audioSource.Play();
         ResetPosition();
     }
